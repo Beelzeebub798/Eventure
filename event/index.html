@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eventure - Event Management System</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/js/tailwind-config.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body class="bg-gray-100 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- ==================== 1. LOGIN SCREEN ==================== -->
+  <div id="screen-login" class="relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
+    <!-- Blurred Background Image Simulation -->
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=2000&q=80" 
+           alt="Event background" 
+           class="w-full h-full object-cover filter blur-sm scale-105" />
+      <div class="absolute inset-0 bg-black/30 backdrop-blur-[2px]"></div>
+    </div>
+    <!-- Login Container -->
+    <div class="relative z-10 w-full max-w-4xl grid md:grid-cols-2 rounded-3xl overflow-hidden shadow-2xl border border-white/40">
+      
+      <!-- Left Hero/Logo Section -->
+      <div class="bg-slate-900/60 backdrop-blur-md p-10 flex flex-col justify-center items-center text-center text-white border-r border-white/10">
+        <div class="mb-6 flex items-center justify-center">
+          <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/30 transform -rotate-6">
+            <i data-lucide="sparkles" class="w-10 h-10 text-white"></i>
+          </div>
+        </div>
+        <h1 class="text-4xl font-extrabold tracking-tight mb-1">
+          <span class="text-blue-400">EVENT</span>URE
+        </h1>
+        <p class="text-xs uppercase tracking-widest text-gray-300 font-semibold mb-6">Discover · Explore · Prepare</p>
+        <p class="text-sm text-gray-300 max-w-xs leading-relaxed">
+          The all-in-one platform for seamless event management, ticket booking, and operational logistics.
+        </p>
+      </div>
+
+      <!-- Right Form Section (Matching User Image 1) -->
+      <div class="login-glass p-8 md:p-10 flex flex-col justify-center">
+        <!-- User Avatar Circle -->
+        <div class="flex justify-center mb-6">
+          <div class="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center shadow-xl text-white border-4 border-white/80">
+            <i data-lucide="user" class="w-10 h-10"></i>
+          </div>
+        </div>
+
+        <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <i data-lucide="user" class="login-field-icon w-5 h-5"></i>
+            </div>
+            <input type="email" id="loginEmail" placeholder="Enter your Email"
+       class="w-full pl-11 pr-4 py-3 bg-white/70 backdrop-blur-sm rounded-full border border-gray-300/80 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white text-gray-800 placeholder-gray-500 shadow-sm text-sm" />
+</div>
+
+<div class="relative">
+  <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+    <i data-lucide="lock" class="login-field-icon w-5 h-5"></i>
+  </div>
+  <input type="password" id="loginPassword" placeholder="Enter your Password"
+       class="w-full pl-11 pr-4 py-3 bg-white/70 backdrop-blur-sm rounded-full border border-gray-300/80 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white text-gray-800 placeholder-gray-500 shadow-sm text-sm" />
+</div>
+
+          <div class="text-right">
+            <a href="#" onclick="showToast(`Password reset requested for ${document.getElementById('loginEmail').value || 'your account'}`, 'info'); return false;" 
+               class="text-xs font-semibold text-gray-700 hover:text-blue-700 transition">Forgot Password?</a>
+          </div>
+
+          <button type="submit" 
+                  class="w-full py-3.5 bg-white/90 hover:bg-white text-blue-700 font-bold text-lg rounded-full shadow-lg border border-white hover:shadow-xl transition transform active:scale-95">
+            Login
+          </button>
+
+          <div class="flex items-center gap-3 py-1 text-xs text-gray-500">
+            <span class="h-px flex-1 bg-gray-300"></span>
+            <span>OR</span>
+            <span class="h-px flex-1 bg-gray-300"></span>
+          </div>
+
+          <button type="button" onclick="continueWithGoogleDemo()" class="flex w-full items-center justify-center gap-3 rounded-full border border-gray-300 bg-white py-3 text-sm font-bold text-gray-700 shadow-sm transition hover:bg-gray-50">
+            <svg aria-hidden="true" viewBox="0 0 48 48" class="h-5 w-5">
+              <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5Z" transform="translate(0 4)"/>
+              <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.71 7.18l7.62 5.91c4.45-4.1 7.13-10.14 7.13-17.56Z" transform="translate(0 -3)"/>
+              <path fill="#FBBC05" d="M10.53 28.59a14.4 14.4 0 0 1 0-9.18l-7.98-6.19a23.9 23.9 0 0 0 0 21.56l7.98-6.19Z" transform="translate(0 -2)"/>
+              <path fill="#34A853" d="M24 48c6.47 0 11.9-2.13 15.85-5.8l-7.62-5.91c-2.12 1.42-4.84 2.26-8.23 2.26-6.26 0-11.57-4.22-13.46-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48Z" transform="translate(0 -4)"/>
+            </svg>
+            Continue with Google
+          </button>
+          <p class="text-center text-[11px] text-gray-500">Demo sign-in only; Google OAuth is not connected.</p>
+
+          <button type="button" onclick="loginAsAdminDemo()" class="w-full rounded-full border border-slate-700 bg-slate-900 py-3 text-sm font-bold text-white transition hover:bg-slate-800">
+            Login as Admin
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ==================== MAIN APPLICATION CONTAINER (USER + ADMIN) ==================== -->
+  <div id="screen-app" class="hidden min-h-screen flex flex-col md:flex-row flex-1">
+    
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="w-full md:w-64 bg-slate-900 text-white flex flex-col shrink-0 shadow-2xl z-30">
+      <div>
+        <!-- Brand Header -->
+        <div class="p-6 border-b border-slate-800 flex items-center gap-3">
+          <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30">
+            <i data-lucide="sparkles" class="w-6 h-6 text-white"></i>
+          </div>
+          <div>
+            <h1 class="font-bold text-xl tracking-wide leading-none text-white">EVENTURE</h1>
+            <span class="text-[10px] text-gray-400 tracking-wider uppercase font-semibold">Discover · Explore · Prepare</span>
+          </div>
+        </div>
+
+        <!-- User Role Badge Banner -->
+        <div class="mx-4 mt-4 p-2.5 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center gap-3">
+          <div id="nav-user-avatar" class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-sm shrink-0">
+            P
+          </div>
+          <div class="overflow-hidden">
+            <p id="nav-user-name" class="text-sm font-semibold truncate text-white">Patrick</p>
+            <p id="nav-user-role" class="text-xs text-blue-400 font-medium capitalize">User Account</p>
+          </div>
+        </div>
+
+        <!-- USER SIDEBAR MODULE NAV -->
+        <nav id="user-nav" class="p-4 space-y-1.5">
+          <button onclick="switchView('user-dashboard')" id="nav-user-dashboard"
+                  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition text-gray-300 hover:bg-slate-800 hover:text-white">
+            <i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard
+          </button>
+          <button onclick="switchView('user-events')" id="nav-user-events"
+                  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition text-gray-300 hover:bg-slate-800 hover:text-white">
+            <i data-lucide="compass" class="w-5 h-5"></i> Discover Events
+          </button>
+          <button onclick="switchView('user-bookings')" id="nav-user-bookings"
+                  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition text-gray-300 hover:bg-slate-800 hover:text-white">
+            <i data-lucide="ticket" class="w-5 h-5"></i> My Bookings
+          </button>
+          <button onclick="switchView('user-saved')" id="nav-user-saved"
+                  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition text-gray-300 hover:bg-slate-800 hover:text-white">
+            <i data-lucide="bookmark" class="w-5 h-5"></i> Save Later
+          </button>
+        </nav>
+
+        <!-- ADMIN SIDEBAR MODULE NAV -->
+        <nav id="admin-nav" class="hidden p-4 space-y-1.5">
+          <button onclick="switchView('admin-dashboard')" id="nav-admin-dashboard"
+                  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition text-gray-300 hover:bg-slate-800 hover:text-white">
+            <i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard
+          </button>
+          <button onclick="switchView('admin-events')" id="nav-admin-events"
+                  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition text-gray-300 hover:bg-slate-800 hover:text-white">
+            <i data-lucide="calendar" class="w-5 h-5"></i> Event Listing
+          </button>
+          <button onclick="switchView('admin-registrations')" id="nav-admin-registrations"
+                  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition text-gray-300 hover:bg-slate-800 hover:text-white">
+            <i data-lucide="users-round" class="w-5 h-5"></i> Registrations
+          </button>
+          <button onclick="switchView('admin-transactions')" id="nav-admin-transactions"
+                  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition text-gray-300 hover:bg-slate-800 hover:text-white">
+            <i data-lucide="receipt" class="w-5 h-5"></i> Transaction Logs
+          </button>
+          <button onclick="switchView('admin-reports')" id="nav-admin-reports"
+                  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition text-gray-300 hover:bg-slate-800 hover:text-white">
+            <i data-lucide="bar-chart-3" class="w-5 h-5"></i> Reports & Analytics
+          </button>
+          <button onclick="switchView('admin-account')" id="nav-admin-account"
+                  class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition text-gray-300 hover:bg-slate-800 hover:text-white">
+            <i data-lucide="settings" class="w-5 h-5"></i> Account Settings
+          </button>
+        </nav>
+      </div>
+
+    </aside>
+
+    <!-- RIGHT MAIN CONTENT AREA -->
+    <main class="flex-1 flex flex-col min-w-0 bg-slate-50 overflow-x-hidden">
+      
+      <!-- TOP NAVIGATION BAR -->
+      <header class="h-16 bg-white border-b border-gray-200 px-6 flex items-center justify-between sticky top-0 z-20 shadow-sm">
+        <!-- Search Bar -->
+        <div class="relative w-full max-w-md">
+          <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"></i>
+          <input type="text" id="global-search" oninput="handleSearch(this.value)" placeholder="Search events, venues, bookings..."
+                 class="w-full pl-10 pr-4 py-2 text-sm bg-gray-100/80 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition" />
+        </div>
+
+        <!-- Top Right User Profile Header (Matching Images) -->
+        <div class="flex items-center gap-4">
+          <div id="notification-dropdown" class="relative">
+            <button
+              id="notification-dropdown-toggle"
+              type="button"
+              onclick="toggleNotificationMenu()"
+              aria-expanded="false"
+              aria-controls="notification-dropdown-menu"
+              aria-label="Notifications"
+              class="p-2 text-gray-500 hover:text-gray-800 rounded-full hover:bg-gray-100 transition relative focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <i data-lucide="bell" class="w-5 h-5"></i>
+              <span id="notification-badge" class="hidden absolute -top-0.5 -right-0.5 min-w-4 h-4 px-1 bg-blue-600 text-white text-[9px] font-bold rounded-full items-center justify-center"></span>
+            </button>
+            <div id="notification-dropdown-menu" class="hidden absolute right-0 top-full mt-2 w-80 max-w-[calc(100vw-2rem)] rounded-xl border border-gray-200 bg-white shadow-lg">
+              <div class="flex items-center justify-between border-b border-gray-100 px-4 py-3">
+                <h2 class="text-sm font-bold text-gray-900">Notifications</h2>
+                <button type="button" onclick="clearNotifications()" class="text-xs font-semibold text-blue-600 hover:text-blue-800">
+                  Clear all
+                </button>
+              </div>
+              <div id="notification-list" aria-live="polite" class="max-h-80 overflow-y-auto p-2">
+                <p id="notification-empty" class="px-3 py-6 text-center text-xs text-gray-500">No notifications yet.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="h-6 w-px bg-gray-200"></div>
+
+          <div id="profile-dropdown" class="relative">
+            <button
+              id="profile-dropdown-toggle"
+              type="button"
+              onclick="toggleProfileMenu()"
+              aria-expanded="false"
+              aria-controls="profile-dropdown-menu"
+              class="flex items-center gap-3 rounded-full p-1.5 hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <span id="top-avatar" class="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow">
+                P
+              </span>
+              <span class="hidden sm:block text-left">
+                <span id="top-user-name" class="block text-xs font-bold text-gray-800 leading-tight">Patrick</span>
+                <span id="top-user-sub" class="block text-[11px] text-gray-500 leading-tight">User</span>
+              </span>
+              <i id="profile-dropdown-chevron" data-lucide="chevron-down" class="w-4 h-4 text-gray-500 transition-transform duration-200"></i>
+            </button>
+
+            <div id="profile-dropdown-menu" class="hidden absolute right-0 top-full mt-2 w-48 rounded-xl border border-gray-200 bg-white p-2 shadow-lg">
+              <button
+                type="button"
+                onclick="switchAccount()"
+                class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-100"
+              >
+                <i data-lucide="repeat-2" class="w-4 h-4"></i>
+                <span>Switch Account</span>
+              </button>
+              <button
+                type="button"
+                onclick="logout()"
+                class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-50"
+              >
+                <i data-lucide="log-out" class="w-4 h-4"></i>
+                <span>Sign Out</span>
+              </button>
+            </div>
+          </div>
+      </header>
+
+      <!-- CONTENT VIEWS -->
+      <div class="p-6 md:p-8 flex-1 overflow-y-auto">
+
+        <!-- ==================== USER VIEWS ==================== -->
+        
+        <!-- 3.2 USER DASHBOARD (Matching Image 2) -->
+        <div id="view-user-dashboard" class="view-content space-y-6">
+          <div>
+            <h1 class="text-3xl font-black text-gray-900 tracking-tight">Dashboard Overview</h1>
+            <p class="text-sm text-gray-500 mt-1">Welcome to Eventure. Find and join events near you.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Left 2 Cols: Featured Events & Categories -->
+            <div class="lg:col-span-2 space-y-6">
+              
+              <!-- Featured Events Container -->
+              <div class="bg-white rounded-2xl p-5 border border-gray-200/80 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="calendar" class="w-5 h-5 text-blue-600"></i>
+                    <h2 class="font-bold text-gray-800 text-lg">Featured Events</h2>
+                  </div>
+                  <button onclick="switchView('user-events')" class="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+                    View All <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                  </button>
+                </div>
+
+                <!-- Events Horizontal Slider / Grid -->
+                <div id="featured-events-grid" class="grid sm:grid-cols-2 gap-4">
+                  <!-- Dynamically Rendered Cards -->
+                </div>
+              </div>
+
+              <!-- Event Categories Section (Matching Image 2 icons) -->
+              <div class="bg-white rounded-2xl p-5 border border-gray-200/80 shadow-sm">
+                <div class="flex items-center gap-2 mb-4">
+                  <i data-lucide="layout-grid" class="w-5 h-5 text-blue-600"></i>
+                  <h2 class="font-bold text-gray-800 text-lg">Event Categories</h2>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  <button onclick="filterCategory('Music')" class="flex flex-col items-center justify-center p-4 bg-purple-100/70 hover:bg-purple-200/70 rounded-2xl border border-purple-200 transition group">
+                    <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white mb-2 shadow group-hover:scale-110 transition transform">
+                      <i data-lucide="music" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-bold text-sm text-purple-950">Music</span>
+                  </button>
+
+                  <button onclick="filterCategory('Sports')" class="flex flex-col items-center justify-center p-4 bg-orange-100/70 hover:bg-orange-200/70 rounded-2xl border border-orange-200 transition group">
+                    <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white mb-2 shadow group-hover:scale-110 transition transform">
+                      <i data-lucide="trophy" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-bold text-sm text-orange-950">Sports</span>
+                  </button>
+
+                  <button onclick="filterCategory('Gaming')" class="flex flex-col items-center justify-center p-4 bg-blue-100/70 hover:bg-blue-200/70 rounded-2xl border border-blue-200 transition group">
+                    <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white mb-2 shadow group-hover:scale-110 transition transform">
+                      <i data-lucide="gamepad-2" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-bold text-sm text-blue-950">Gaming</span>
+                  </button>
+
+                  <button onclick="filterCategory('Seminars')" class="flex flex-col items-center justify-center p-4 bg-teal-100/70 hover:bg-teal-200/70 rounded-2xl border border-teal-200 transition group">
+                    <div class="w-12 h-12 bg-teal-600 rounded-full flex items-center justify-center text-white mb-2 shadow group-hover:scale-110 transition transform">
+                      <i data-lucide="presentation" class="w-6 h-6"></i>
+                    </div>
+                    <span class="font-bold text-sm text-teal-950">Seminars</span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Right Col: My Upcoming Events & Recent Activities -->
+            <div class="space-y-6">
+              
+              <!-- My Upcoming Ticket Card Widget -->
+              <div class="bg-white rounded-2xl p-5 border border-gray-200/80 shadow-sm">
+                <div class="flex items-center gap-2 mb-4">
+                  <i data-lucide="calendar-check" class="w-5 h-5 text-blue-600"></i>
+                  <h2 class="font-bold text-gray-800 text-lg">My Upcoming Events</h2>
+                </div>
+                <div id="user-upcoming-widget">
+                  <!-- Dynamic content -->
+                </div>
+              </div>
+
+              <!-- Recent Activities -->
+              <div class="bg-white rounded-2xl p-5 border border-gray-200/80 shadow-sm">
+                <div class="flex items-center gap-2 mb-4">
+                  <i data-lucide="history" class="w-5 h-5 text-blue-600"></i>
+                  <h2 class="font-bold text-gray-800 text-lg">Recent Activities</h2>
+                </div>
+                <div id="recent-activities-list" class="space-y-3">
+                  <!-- Dynamic list items -->
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 3.3 USER EVENT LISTING & DISCOVERY -->
+        <div id="view-user-events" class="view-content hidden space-y-6">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h1 class="text-3xl font-black text-gray-900 tracking-tight">Discover Events</h1>
+              <p class="text-sm text-gray-500 mt-1">Browse upcoming concerts, gaming tournaments, and seminars.</p>
+            </div>
+            
+            <!-- Category Filter Pills -->
+            <div class="flex flex-wrap gap-2" id="category-filter-bar">
+              <button onclick="filterCategory('All')" class="cat-pill active px-4 py-2 bg-blue-600 text-white rounded-full text-xs font-bold transition">All</button>
+              <button onclick="filterCategory('Music')" class="cat-pill px-4 py-2 bg-gray-200 text-gray-700 hover:bg-gray-300 rounded-full text-xs font-bold transition">Music</button>
+              <button onclick="filterCategory('Sports')" class="cat-pill px-4 py-2 bg-gray-200 text-gray-700 hover:bg-gray-300 rounded-full text-xs font-bold transition">Sports</button>
+              <button onclick="filterCategory('Gaming')" class="cat-pill px-4 py-2 bg-gray-200 text-gray-700 hover:bg-gray-300 rounded-full text-xs font-bold transition">Gaming</button>
+              <button onclick="filterCategory('Seminars')" class="cat-pill px-4 py-2 bg-gray-200 text-gray-700 hover:bg-gray-300 rounded-full text-xs font-bold transition">Seminars</button>
+            </div>
+          </div>
+
+          <div id="all-events-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamically populates events -->
+          </div>
+        </div>
+
+        <!-- 3.5 USER TICKET HISTORY / MY BOOKINGS MODULE -->
+        <div id="view-user-bookings" class="view-content hidden space-y-6">
+          <div>
+            <h1 class="text-3xl font-black text-gray-900 tracking-tight">My Ticket Bookings</h1>
+            <p class="text-sm text-gray-500 mt-1">View active event entry QR codes, past receipts, and ticket details.</p>
+          </div>
+
+          <div id="bookings-list-container" class="space-y-4">
+            <!-- Dynamic bookings cards -->
+          </div>
+        </div>
+
+        <!-- 3.6 SAVE LATER MODULE -->
+        <div id="view-user-saved" class="view-content hidden space-y-6">
+          <div>
+            <h1 class="text-3xl font-black text-gray-900 tracking-tight">Saved Events</h1>
+            <p class="text-sm text-gray-500 mt-1">Your bookmarked events saved for future booking.</p>
+          </div>
+
+          <div id="saved-events-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamic saved event cards -->
+          </div>
+        </div>
+
+
+        <!-- ==================== ADMIN VIEWS ==================== -->
+
+        <!-- ADMIN DASHBOARD (Matching Image 3) -->
+        <div id="view-admin-dashboard" class="view-content hidden space-y-6">
+          <div>
+            <h1 class="text-3xl font-black text-gray-900 tracking-tight">Admin Dashboard</h1>
+            <p class="text-sm text-gray-500 mt-1">System operational metrics and event management hub.</p>
+          </div>
+
+          <!-- TOP METRICS CARDS (Matching Image 3 top banner) -->
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
+                <i data-lucide="calendar" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Total Events</p>
+                <p id="metric-total" class="text-2xl font-black text-gray-800">24</p>
+              </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">
+                <i data-lucide="clock" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Upcoming</p>
+                <p id="metric-upcoming" class="text-2xl font-black text-gray-800">10</p>
+              </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center font-bold">
+                <i data-lucide="play-circle" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Ongoing</p>
+                <p id="metric-ongoing" class="text-2xl font-black text-gray-800">2</p>
+              </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center font-bold">
+                <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Completed</p>
+                <p id="metric-completed" class="text-2xl font-black text-gray-800">10</p>
+              </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center font-bold">
+                <i data-lucide="x-circle" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Canceled</p>
+                <p id="metric-canceled" class="text-2xl font-black text-gray-800">1</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upcoming Events Overview Table & Analytics Charts (Matching Image 3 Layout) -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Left 2 Cols: Upcoming Events List -->
+            <div class="lg:col-span-2 bg-white rounded-2xl p-5 border border-gray-200 shadow-sm space-y-4">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="calendar-days" class="w-5 h-5 text-blue-600"></i>
+                  <h2 class="font-bold text-gray-800 text-lg">Upcoming Events</h2>
+                </div>
+                <button onclick="switchView('admin-events')" class="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+                  View All <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+
+              <div id="admin-dashboard-events-list" class="space-y-3">
+                <!-- Dynamically populated upcoming event rows -->
+              </div>
+            </div>
+
+            <!-- Right Col: Recent System Activity & Donut Budget Breakdown -->
+            <div class="space-y-6">
+              
+              <!-- Recent Activity -->
+              <div class="bg-white rounded-2xl p-5 border border-gray-200 shadow-sm">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="clock" class="w-5 h-5 text-blue-600"></i>
+                    <h2 class="font-bold text-gray-800 text-base">Recent Activity</h2>
+                  </div>
+                </div>
+                <div class="space-y-3 text-xs text-gray-600">
+                  <div class="flex items-start gap-3 p-2 bg-gray-50 rounded-xl">
+                    <i data-lucide="file-plus" class="w-4 h-4 text-blue-500 mt-0.5"></i>
+                    <div>
+                      <p class="font-bold text-gray-800">New Register Event</p>
+                      <span class="text-gray-400">1 hour ago</span>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-3 p-2 bg-gray-50 rounded-xl">
+                    <i data-lucide="mail" class="w-4 h-4 text-purple-500 mt-0.5"></i>
+                    <div>
+                      <p class="font-bold text-gray-800">New Email has sent</p>
+                      <span class="text-gray-400">1 hour ago</span>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-3 p-2 bg-gray-50 rounded-xl">
+                    <i data-lucide="edit" class="w-4 h-4 text-emerald-500 mt-0.5"></i>
+                    <div>
+                      <p class="font-bold text-gray-800">Event "MLBB Tournament" updated</p>
+                      <span class="text-gray-400">2 hours ago</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Status Overview Pie Chart (Matching Image 3 Pie Chart design) -->
+              <div class="bg-white rounded-2xl p-5 border border-gray-200 shadow-sm">
+                <div class="flex items-center gap-2 mb-4">
+                  <i data-lucide="pie-chart" class="w-5 h-5 text-blue-600"></i>
+                  <h2 class="font-bold text-gray-800 text-base">Event Status Breakdown</h2>
+                </div>
+                <div class="relative flex justify-center items-center h-48">
+                  <canvas id="adminPieChart" width="200" height="200"></canvas>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 3.7 ADMIN EVENT LISTING MODULE -->
+        <div id="view-admin-events" class="view-content hidden space-y-6">
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h1 class="text-3xl font-black text-gray-900 tracking-tight">Event Management</h1>
+              <p class="text-sm text-gray-500 mt-1">Create, update, reschedule or cancel events.</p>
+            </div>
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-end">
+              <div class="w-full sm:w-64">
+              <label for="admin-event-category-filter" class="mb-1 block text-xs font-bold text-gray-600">Filter by category</label>
+              <select id="admin-event-category-filter" onchange="renderAdminEvents()" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                <option value="all">All categories</option>
+              </select>
+              </div>
+              <button onclick="openCreateEventModal()" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow transition hover:bg-blue-700">
+                <i data-lucide="plus" class="h-4 w-4"></i> Create New Event
+              </button>
+            </div>
+          </div>
+          <p id="admin-events-filter-count" class="text-xs font-medium text-gray-500"></p>
+
+          <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm">
+                <thead class="bg-gray-50 border-b border-gray-200 text-xs font-bold uppercase text-gray-500">
+                  <tr>
+                    <th class="px-6 py-4">Event Details</th>
+                    <th class="px-6 py-4">Category</th>
+                    <th class="px-6 py-4">Venue</th>
+                    <th class="px-6 py-4">Date & Time</th>
+                    <th class="px-6 py-4">Price</th>
+                    <th class="px-6 py-4">Status</th>
+                    <th class="px-6 py-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-events-table-body" class="divide-y divide-gray-100">
+                  <!-- Dynamic rows -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div id="view-admin-registrations" class="view-content hidden space-y-6">
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h1 class="text-3xl font-black tracking-tight text-gray-900">Event Registrations</h1>
+              <p class="mt-1 text-sm text-gray-500">Check each payment before confirming a registration.</p>
+            </div>
+            <div class="w-full sm:w-72">
+              <label for="registration-event-filter" class="mb-1 block text-xs font-bold text-gray-600">Event</label>
+              <select id="registration-event-filter" onchange="renderRegistrations()" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                <option value="all">All events</option>
+              </select>
+            </div>
+          </div>
+
+          <p id="registration-summary-caption" class="text-xs font-medium text-gray-500"></p>
+
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <article class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+              <div class="flex items-center justify-between">
+                <p class="text-xs font-bold uppercase tracking-wide text-gray-500">Total people</p>
+                <span class="rounded-xl bg-blue-50 p-2 text-blue-600"><i data-lucide="users-round" class="h-4 w-4"></i></span>
+              </div>
+              <p id="registration-total-count" class="mt-4 text-2xl font-black text-gray-900">0</p>
+              <p class="mt-1 text-xs text-gray-500">Includes all registration statuses</p>
+            </article>
+            <article class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+              <div class="flex items-center justify-between">
+                <p class="text-xs font-bold uppercase tracking-wide text-gray-500">Confirmed</p>
+                <span class="rounded-xl bg-emerald-50 p-2 text-emerald-600"><i data-lucide="circle-check" class="h-4 w-4"></i></span>
+              </div>
+              <p id="registration-confirmed-count" class="mt-4 text-2xl font-black text-gray-900">0</p>
+              <p class="mt-1 text-xs text-gray-500">Approved attendees</p>
+            </article>
+            <article class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+              <div class="flex items-center justify-between">
+                <p class="text-xs font-bold uppercase tracking-wide text-gray-500">Pending confirmation</p>
+                <span class="rounded-xl bg-amber-50 p-2 text-amber-600"><i data-lucide="clock-3" class="h-4 w-4"></i></span>
+              </div>
+              <p id="registration-pending-count" class="mt-4 text-2xl font-black text-gray-900">0</p>
+              <p class="mt-1 text-xs text-gray-500">Awaiting admin review</p>
+            </article>
+            <article class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+              <div class="flex items-center justify-between">
+                <p class="text-xs font-bold uppercase tracking-wide text-gray-500">Canceled</p>
+                <span class="rounded-xl bg-red-50 p-2 text-red-600"><i data-lucide="circle-x" class="h-4 w-4"></i></span>
+              </div>
+              <p id="registration-canceled-count" class="mt-4 text-2xl font-black text-gray-900">0</p>
+              <p class="mt-1 text-xs text-gray-500">Canceled attendee spots</p>
+            </article>
+          </div>
+
+          <section class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+            <div class="flex flex-col gap-3 border-b border-gray-100 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h2 class="font-bold text-gray-900">Attendee list</h2>
+                <p class="mt-1 text-xs text-gray-500">Only registrations with completed payments can be confirmed.</p>
+              </div>
+              <select id="registration-status-filter" onchange="renderRegistrations()" aria-label="Filter by registration status" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                <option value="all">All statuses</option>
+                <option value="Pending confirmation">Pending confirmation</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Canceled">Canceled</option>
+              </select>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm">
+                <thead class="bg-gray-50 text-xs font-bold uppercase text-gray-500">
+                  <tr>
+                    <th class="px-5 py-3">Attendee</th>
+                    <th class="px-5 py-3">Event</th>
+                    <th class="px-5 py-3">People</th>
+                    <th class="px-5 py-3">Registered</th>
+                    <th class="px-5 py-3">Payment</th>
+                    <th class="px-5 py-3">Status</th>
+                    <th class="px-5 py-3 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="registrations-table-body" class="divide-y divide-gray-100"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+
+        <!-- ADMIN TRANSACTION LOGS MODULE -->
+        <div id="view-admin-transactions" class="view-content hidden space-y-6">
+          <div>
+            <h1 class="text-3xl font-black text-gray-900 tracking-tight">Transaction Logs</h1>
+            <p class="text-sm text-gray-500 mt-1">Audit trail of ticket purchases, payment statuses, and invoice IDs.</p>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-gray-50 border-b border-gray-200 text-xs font-bold uppercase text-gray-500">
+                <tr>
+                  <th class="px-6 py-4">Transaction ID</th>
+                  <th class="px-6 py-4">User</th>
+                  <th class="px-6 py-4">Event</th>
+                  <th class="px-6 py-4">Amount</th>
+                  <th class="px-6 py-4">Payment Method</th>
+                  <th class="px-6 py-4">Status</th>
+                  <th class="px-6 py-4">Date</th>
+                </tr>
+              </thead>
+              <tbody id="transactions-table-body" class="divide-y divide-gray-100">
+                <!-- Dynamic transaction rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ADMIN REPORTS MODULE -->
+        <div id="view-admin-reports" class="view-content hidden space-y-6">
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h1 class="text-3xl font-black text-gray-900 tracking-tight">Reports &amp; Analytics</h1>
+              <p class="text-sm text-gray-500 mt-1">Understand ticket sales, revenue, and event performance.</p>
+            </div>
+            <div class="flex flex-wrap items-end gap-3">
+              <div>
+                <label for="report-period" class="mb-1 block text-xs font-bold text-gray-600">Reporting period</label>
+                <select id="report-period" onchange="renderReports()" class="rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                  <option value="30">Last 30 days</option>
+                  <option value="365">Last 12 months</option>
+                  <option value="all">All time</option>
+                </select>
+              </div>
+              <button type="button" onclick="exportReportsCsv()" class="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow transition hover:bg-blue-700">
+                <i data-lucide="download" class="h-4 w-4"></i> Export CSV
+              </button>
+            </div>
+          </div>
+
+          <p id="report-period-caption" class="text-xs font-medium text-gray-500"></p>
+
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <article class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+              <div class="flex items-center justify-between">
+                <p class="text-xs font-bold uppercase tracking-wide text-gray-500">Gross revenue</p>
+                <span class="rounded-xl bg-blue-50 p-2 text-blue-600"><i data-lucide="wallet" class="h-4 w-4"></i></span>
+              </div>
+              <p id="report-total-revenue" class="mt-4 text-2xl font-black text-gray-900">₱0</p>
+              <p class="mt-1 text-xs text-gray-500">From completed payments</p>
+            </article>
+            <article class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+              <div class="flex items-center justify-between">
+                <p class="text-xs font-bold uppercase tracking-wide text-gray-500">Paid transactions</p>
+                <span class="rounded-xl bg-emerald-50 p-2 text-emerald-600"><i data-lucide="receipt" class="h-4 w-4"></i></span>
+              </div>
+              <p id="report-transaction-count" class="mt-4 text-2xl font-black text-gray-900">0</p>
+              <p class="mt-1 text-xs text-gray-500">Completed transactions</p>
+            </article>
+            <article class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+              <div class="flex items-center justify-between">
+                <p class="text-xs font-bold uppercase tracking-wide text-gray-500">Average transaction</p>
+                <span class="rounded-xl bg-violet-50 p-2 text-violet-600"><i data-lucide="calculator" class="h-4 w-4"></i></span>
+              </div>
+              <p id="report-average-transaction" class="mt-4 text-2xl font-black text-gray-900">₱0</p>
+              <p class="mt-1 text-xs text-gray-500">Revenue divided by paid transactions</p>
+            </article>
+            <article class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+              <div class="flex items-center justify-between">
+                <p class="text-xs font-bold uppercase tracking-wide text-gray-500">Top event</p>
+                <span class="rounded-xl bg-amber-50 p-2 text-amber-600"><i data-lucide="trophy" class="h-4 w-4"></i></span>
+              </div>
+              <p id="report-top-event" class="mt-4 truncate text-lg font-black text-gray-900">—</p>
+              <p id="report-top-event-revenue" class="mt-1 text-xs text-gray-500">₱0 revenue</p>
+            </article>
+          </div>
+
+          <div class="grid grid-cols-1 gap-6 xl:grid-cols-3">
+            <section class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm xl:col-span-2">
+              <div class="mb-5">
+                <h2 class="font-bold text-gray-900">Revenue over time</h2>
+                <p class="mt-1 text-xs text-gray-500">Completed payments grouped by period.</p>
+              </div>
+              <div id="report-revenue-chart" class="flex h-64 items-end gap-2 border-b border-gray-200 pb-7" role="img" aria-label="Revenue chart"></div>
+              <p id="report-revenue-empty" class="hidden py-8 text-center text-sm text-gray-500">No completed sales for this period.</p>
+            </section>
+
+            <section class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+              <h2 class="font-bold text-gray-900">Payment methods</h2>
+              <p class="mt-1 text-xs text-gray-500">Share of completed transactions.</p>
+              <div id="report-payment-methods" class="mt-5 space-y-4"></div>
+              <p id="report-methods-empty" class="hidden py-8 text-center text-sm text-gray-500">No payment data for this period.</p>
+            </section>
+          </div>
+
+          <section class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+            <div class="border-b border-gray-100 px-5 py-4">
+              <h2 class="font-bold text-gray-900">Event performance</h2>
+              <p class="mt-1 text-xs text-gray-500">Revenue and completed payment count by event.</p>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm">
+                <thead class="bg-gray-50 text-xs font-bold uppercase text-gray-500">
+                  <tr><th class="px-5 py-3">Event</th><th class="px-5 py-3">Paid transactions</th><th class="px-5 py-3 text-right">Revenue</th></tr>
+                </thead>
+                <tbody id="report-event-performance" class="divide-y divide-gray-100"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+            <div class="flex flex-col gap-3 border-b border-gray-100 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h2 class="font-bold text-gray-900">User transaction activity</h2>
+                <p class="mt-1 text-xs text-gray-500">Reservations, completed payments, and cancellations.</p>
+                <p id="report-activity-count" class="mt-1 text-xs font-medium text-gray-500"></p>
+              </div>
+              <select id="report-activity-filter" onchange="renderReports()" aria-label="Filter transaction activity" class="rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                <option value="all">All activity</option>
+                <option value="Reserved">Reservations</option>
+                <option value="Payment">Payments</option>
+                <option value="Canceled">Cancellations</option>
+              </select>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm">
+                <thead class="bg-gray-50 text-xs font-bold uppercase text-gray-500">
+                  <tr>
+                    <th class="px-5 py-3">Date</th>
+                    <th class="px-5 py-3">User</th>
+                    <th class="px-5 py-3">Event</th>
+                    <th class="px-5 py-3">Activity</th>
+                    <th class="px-5 py-3">Amount</th>
+                    <th class="px-5 py-3">Reference</th>
+                  </tr>
+                </thead>
+                <tbody id="report-activity-table-body" class="divide-y divide-gray-100"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+
+        <div id="view-admin-account" class="view-content hidden space-y-6">
+          <div>
+            <h1 class="text-3xl font-black text-gray-900 tracking-tight">Account Settings</h1>
+            <p class="text-sm text-gray-500 mt-1">Manage your profile and registered administrator accounts.</p>
+          </div>
+
+          <div id="admin-account-panel-profile" class="hidden">
+          <form id="admin-account-form" onsubmit="saveAdminAccount(event)" class="bg-white rounded-2xl border border-gray-200 shadow-sm p-5 md:p-7 space-y-6">
+            <section class="space-y-4">
+              <h2 class="text-lg font-bold text-gray-900">Personal Information</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+                <div>
+                  <label for="account-first-name" class="mb-1 block text-xs font-bold text-gray-600">First Name</label>
+                  <input id="account-first-name" type="text" autocomplete="given-name" required class="w-full rounded-xl border border-gray-300 bg-gray-50 px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                </div>
+                <div>
+                  <label for="account-middle-initial" class="mb-1 block text-xs font-bold text-gray-600">Middle Initial</label>
+                  <input id="account-middle-initial" type="text" maxlength="1" autocomplete="additional-name" class="w-full rounded-xl border border-gray-300 bg-gray-50 px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                </div>
+                <div>
+                  <label for="account-last-name" class="mb-1 block text-xs font-bold text-gray-600">Last Name</label>
+                  <input id="account-last-name" type="text" autocomplete="family-name" required class="w-full rounded-xl border border-gray-300 bg-gray-50 px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                </div>
+                <div>
+                  <label for="account-suffix" class="mb-1 block text-xs font-bold text-gray-600">Suffix</label>
+                  <select id="account-suffix" class="w-full rounded-xl border border-gray-300 bg-gray-50 px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                    <option value="">None</option>
+                    <option value="Jr.">Jr.</option>
+                    <option value="Sr.">Sr.</option>
+                    <option value="II">II</option>
+                    <option value="III">III</option>
+                    <option value="IV">IV</option>
+                  </select>
+                </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label for="account-email" class="mb-1 block text-xs font-bold text-gray-600">Email Address</label>
+                  <input id="account-email" type="email" autocomplete="email" required class="w-full rounded-xl border border-gray-300 bg-gray-50 px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                </div>
+                <div>
+                  <label for="account-phone" class="mb-1 block text-xs font-bold text-gray-600">Phone Number</label>
+                  <input id="account-phone" type="tel" autocomplete="tel" class="w-full rounded-xl border border-gray-300 bg-gray-50 px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                </div>
+              </div>
+            </section>
+
+            <section class="space-y-4">
+              <h2 class="text-lg font-bold text-gray-900">Address</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label for="account-province" class="mb-1 block text-xs font-bold text-gray-600">Province / Area</label>
+                  <select id="account-province" onchange="updateAccountMunicipalities()" class="w-full rounded-xl border border-gray-300 bg-gray-50 px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                    <option value="Cavite">Cavite</option>
+                    <option value="Laguna">Laguna</option>
+                    <option value="Batangas">Batangas</option>
+                    <option value="Rizal">Rizal</option>
+                    <option value="Metro Manila">Metro Manila</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="account-municipality" class="mb-1 block text-xs font-bold text-gray-600">City / Municipality</label>
+                  <select id="account-municipality" onchange="toggleOtherMunicipality()" class="w-full rounded-xl border border-gray-300 bg-gray-50 px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"></select>
+                  <input id="account-other-municipality" type="text" placeholder="Enter city or municipality" class="mt-2 hidden w-full rounded-xl border border-gray-300 bg-gray-50 px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                </div>
+                <div>
+                  <label for="account-barangay" class="mb-1 block text-xs font-bold text-gray-600">Barangay</label>
+                  <input id="account-barangay" type="text" autocomplete="address-level3" class="w-full rounded-xl border border-gray-300 bg-gray-50 px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                </div>
+                <div>
+                  <label for="account-street" class="mb-1 block text-xs font-bold text-gray-600">Street / House Number</label>
+                  <input id="account-street" type="text" autocomplete="street-address" class="w-full rounded-xl border border-gray-300 bg-gray-50 px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                </div>
+              </div>
+            </section>
+
+            <div class="flex justify-end gap-3 border-t border-gray-100 pt-4">
+              <button type="button" onclick="closePrimaryAdminProfile()" class="rounded-xl border border-gray-300 px-5 py-2.5 text-sm font-bold text-gray-700 transition hover:bg-gray-50">Back to Admins</button>
+              <button type="submit" class="rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-bold text-white shadow transition hover:bg-blue-700">Save Changes</button>
+            </div>
+          </form>
+          </div>
+
+          <section id="admin-account-panel-admins" class="space-y-4">
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h2 class="text-xl font-bold text-gray-900">Registered Admins</h2>
+                <p class="mt-1 text-xs text-gray-500">Admin profiles saved in this browser. This demo list does not create secure login credentials.</p>
+              </div>
+              <button type="button" onclick="openAdminAccountEditor()" class="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow transition hover:bg-blue-700">
+                <i data-lucide="user-plus" class="h-4 w-4"></i> Create Admin Account
+              </button>
+            </div>
+
+            <form id="admin-account-editor" onsubmit="saveManagedAdminAccount(event)" class="hidden rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+              <input id="managed-admin-id" type="hidden">
+              <h3 id="managed-admin-editor-title" class="mb-4 text-lg font-bold text-gray-900">Create Admin Account</h3>
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div>
+                  <label for="managed-admin-first-name" class="mb-1 block text-xs font-bold text-gray-600">First Name</label>
+                  <input id="managed-admin-first-name" type="text" required class="w-full rounded-xl border border-gray-300 bg-gray-50 px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                </div>
+                <div>
+                  <label for="managed-admin-middle-initial" class="mb-1 block text-xs font-bold text-gray-600">Middle Initial</label>
+                  <input id="managed-admin-middle-initial" type="text" maxlength="1" class="w-full rounded-xl border border-gray-300 bg-gray-50 px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                </div>
+                <div>
+                  <label for="managed-admin-last-name" class="mb-1 block text-xs font-bold text-gray-600">Last Name</label>
+                  <input id="managed-admin-last-name" type="text" required class="w-full rounded-xl border border-gray-300 bg-gray-50 px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                </div>
+                <div>
+                  <label for="managed-admin-suffix" class="mb-1 block text-xs font-bold text-gray-600">Suffix</label>
+                  <select id="managed-admin-suffix" class="w-full rounded-xl border border-gray-300 bg-gray-50 px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                    <option value="">None</option>
+                    <option value="Jr.">Jr.</option>
+                    <option value="Sr.">Sr.</option>
+                    <option value="II">II</option>
+                    <option value="III">III</option>
+                    <option value="IV">IV</option>
+                  </select>
+                </div>
+                <div class="sm:col-span-2">
+                  <label for="managed-admin-email" class="mb-1 block text-xs font-bold text-gray-600">Email Address</label>
+                  <input id="managed-admin-email" type="email" required autocomplete="email" class="w-full rounded-xl border border-gray-300 bg-gray-50 px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                </div>
+                <div class="sm:col-span-2">
+                  <label for="managed-admin-role" class="mb-1 block text-xs font-bold text-gray-600">Admin Role</label>
+                  <select id="managed-admin-role" required class="w-full rounded-xl border border-gray-300 bg-gray-50 px-3 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+                    <option value="Super Admin">Super Admin — all modules and admin account management</option>
+                    <option value="Event Manager">Event Manager — event listing</option>
+                    <option value="Finance Manager">Finance Manager — transaction logs and reports</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mt-5 flex justify-end gap-3">
+                <button type="button" onclick="closeAdminAccountEditor()" class="rounded-xl border border-gray-300 px-4 py-2.5 text-sm font-bold text-gray-700 hover:bg-gray-50">Cancel</button>
+                <button type="submit" class="rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-bold text-white hover:bg-blue-700">Save Admin</button>
+              </div>
+            </form>
+
+            <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                  <thead class="border-b border-gray-200 bg-gray-50 text-xs font-bold uppercase text-gray-500">
+                    <tr>
+                      <th class="px-5 py-4">Admin Name</th>
+                      <th class="px-5 py-4">Email</th>
+                      <th class="px-5 py-4">Role</th>
+                      <th class="px-5 py-4 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-accounts-table-body" class="divide-y divide-gray-100"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <div id="admin-account-view-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/50 p-4" role="dialog" aria-modal="true" aria-labelledby="admin-account-view-title">
+            <section class="w-full max-w-xl rounded-2xl bg-white p-6 shadow-2xl">
+              <div class="mb-5 flex items-start justify-between gap-4">
+                <div>
+                  <h2 id="admin-account-view-title" class="text-xl font-bold text-gray-900">Admin Information</h2>
+                  <p class="mt-1 text-sm text-gray-500">Personal information for this administrator.</p>
+                </div>
+                <button type="button" onclick="closeAdminAccountView()" aria-label="Close admin details" class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                  <i data-lucide="x" class="h-5 w-5"></i>
+                </button>
+              </div>
+              <dl id="admin-account-view-details" class="grid grid-cols-1 gap-4 sm:grid-cols-2"></dl>
+              <div class="mt-6 flex justify-end gap-3 border-t border-gray-100 pt-4">
+                <button type="button" onclick="closeAdminAccountView()" class="rounded-xl border border-gray-300 px-4 py-2.5 text-sm font-bold text-gray-700 hover:bg-gray-50">Close</button>
+                <button id="admin-account-view-edit" type="button" class="rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-bold text-white hover:bg-blue-700">Edit Account</button>
+              </div>
+            </section>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- BOOKING & PAYMENT SIMULATION MODAL -->
+  <div id="modal-booking" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-gray-100 animate-in fade-in zoom-in duration-200">
+      <div class="bg-slate-900 p-6 text-white flex justify-between items-center">
+        <div>
+          <span class="text-xs text-blue-400 font-bold uppercase tracking-wider">Book Tickets</span>
+          <h3 id="book-modal-title" class="text-xl font-bold">Event Title</h3>
+        </div>
+        <button onclick="closeModal('modal-booking')" class="text-gray-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-5">
+        <div class="flex items-center justify-between p-3 bg-blue-50 rounded-xl text-xs font-semibold text-blue-900">
+          <span id="book-modal-date">Dec 20, 2026</span>
+          <span id="book-modal-venue">Kawit, Cavite</span>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-600 uppercase mb-2">Select Ticket Tier</label>
+          <select id="book-modal-tier" onchange="calculateBookingTotal()" class="w-full p-3 bg-gray-100 border border-gray-200 rounded-xl text-sm font-semibold">
+            <option value="Standard" data-price="500">Standard Access - ₱500</option>
+            <option value="VIP" data-price="1200">VIP Pass (Front Row) - ₱1,200</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-600 uppercase mb-2">Quantity</label>
+          <div class="flex items-center gap-4">
+            <button onclick="adjustTicketQty(-1)" class="w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-xl font-bold text-lg text-gray-700 flex items-center justify-center">-</button>
+            <span id="book-modal-qty" class="text-xl font-extrabold text-gray-800">1</span>
+            <button onclick="adjustTicketQty(1)" class="w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-xl font-bold text-lg text-gray-700 flex items-center justify-center">+</button>
+          </div>
+        </div>
+
+        <!-- 3.4 Payment Method -->
+        <div>
+          <label class="block text-xs font-bold text-gray-600 uppercase mb-2">Payment Method</label>
+          <div class="grid grid-cols-3 gap-3">
+            <label class="border-2 border-blue-600 bg-blue-50/50 p-3 rounded-xl flex flex-col items-center cursor-pointer text-xs font-bold text-blue-900">
+              <input type="radio" name="pay-method" value="GCash" checked class="sr-only">
+              <i data-lucide="wallet" class="w-5 h-5 mb-1 text-blue-600"></i> GCash / Wallet
+            </label>
+            <label class="border-2 border-gray-200 p-3 rounded-xl flex flex-col items-center cursor-pointer text-xs font-bold text-gray-600 hover:border-blue-300">
+              <input type="radio" name="pay-method" value="Card" class="sr-only">
+              <i data-lucide="credit-card" class="w-5 h-5 mb-1 text-gray-500"></i> Credit Card
+            </label>
+            <label class="border-2 border-gray-200 p-3 rounded-xl flex flex-col items-center cursor-pointer text-xs font-bold text-gray-600 hover:border-blue-300">
+              <input type="radio" name="pay-method" value="Maya" class="sr-only">
+              <i data-lucide="smartphone" class="w-5 h-5 mb-1 text-gray-500"></i> Maya
+            </label>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-200 pt-4 flex items-center justify-between">
+          <div>
+            <p class="text-xs text-gray-400 font-semibold uppercase">Total Amount</p>
+            <p id="book-modal-total" class="text-2xl font-black text-blue-600">₱500</p>
+          </div>
+          <button onclick="processPayment()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg transition">
+            Pay & Generate Ticket
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR CODE TICKET VIEW MODAL -->
+  <div id="modal-ticket" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full overflow-hidden shadow-2xl border border-gray-100 text-center p-6 space-y-4">
+      <div class="flex justify-between items-center border-b pb-3">
+        <span class="text-xs font-bold text-blue-600 uppercase">Official Event Ticket</span>
+        <button onclick="closeModal('modal-ticket')" class="text-gray-400 hover:text-gray-700">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="bg-slate-900 text-white p-4 rounded-2xl">
+        <h3 id="ticket-modal-title" class="font-extrabold text-lg">Event Title</h3>
+        <p id="ticket-modal-date" class="text-xs text-gray-300 mt-1">Date & Time</p>
+      </div>
+
+      <!-- Generated SVG QR Code -->
+      <div class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-2xl border border-gray-200">
+        <svg id="qr-code-svg" class="w-44 h-44" viewBox="0 0 100 100">
+          <!-- SVG QR graphic dynamically generated in script -->
+        </svg>
+        <p id="ticket-code-str" class="text-xs font-mono font-bold text-gray-500 mt-2">EVT-99824-2026</p>
+      </div>
+
+      <div class="text-xs text-gray-500 space-y-1">
+        <p>Presenter: <span id="ticket-user-name" class="font-bold text-gray-800">Patrick</span></p>
+        <p>Seats: <span id="ticket-qty-str" class="font-bold text-gray-800">1 x Standard</span></p>
+      </div>
+
+      <button onclick="showToast('Ticket downloaded as PDF!', 'success'); closeModal('modal-ticket');" 
+              class="w-full py-2.5 bg-slate-900 text-white font-bold text-xs rounded-xl hover:bg-slate-800 transition">
+        Download Pass
+      </button>
+    </div>
+  </div>
+
+  <!-- CREATE/EDIT EVENT MODAL (ADMIN) -->
+  <div id="modal-admin-event" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-gray-100">
+      <div class="bg-slate-900 p-6 text-white flex justify-between items-center">
+        <h3 class="text-xl font-bold">Manage Event</h3>
+        <button onclick="closeModal('modal-admin-event')" class="text-gray-400 hover:text-white">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <form id="eventForm" onsubmit="saveAdminEvent(event)" class="p-6 space-y-4">
+        <input type="hidden" id="event-form-id">
+        <div>
+          <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Event Title</label>
+          <input type="text" id="event-form-title" required class="w-full p-2.5 bg-gray-100 rounded-xl text-sm border focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Category</label>
+            <select id="event-form-category" class="w-full p-2.5 bg-gray-100 rounded-xl text-sm border">
+              <option value="Music">Music</option>
+              <option value="Sports">Sports</option>
+              <option value="Gaming">Gaming</option>
+              <option value="Seminars">Seminars</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Price (₱)</label>
+            <input type="number" id="event-form-price" required class="w-full p-2.5 bg-gray-100 rounded-xl text-sm border">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Date</label>
+            <input type="text" id="event-form-date" placeholder="December 20, 2026" required class="w-full p-2.5 bg-gray-100 rounded-xl text-sm border">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Venue</label>
+            <input type="text" id="event-form-venue" placeholder="Kawit, Cavite" required class="w-full p-2.5 bg-gray-100 rounded-xl text-sm border">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Status</label>
+          <select id="event-form-status" class="w-full p-2.5 bg-gray-100 rounded-xl text-sm border">
+            <option value="Upcoming">Upcoming</option>
+            <option value="Ongoing">Ongoing</option>
+            <option value="Completed">Completed</option>
+            <option value="Canceled">Canceled</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Image URL</label>
+          <input type="text" id="event-form-img" placeholder="https://images.unsplash.com/..." class="w-full p-2.5 bg-gray-100 rounded-xl text-sm border">
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition">
+          Save Event Listing
+        </button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/admin-account.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/navigation.js"></script>
+  <script src="assets/js/user.js"></script>
+  <script src="assets/js/booking.js"></script>
+  <script src="assets/js/admin.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>
